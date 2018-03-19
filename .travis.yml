@@ -9,6 +9,6 @@ script:
     exitcode=0;
     for i in $(ls -d */); 
     do 
-      bids-validator ${i%%/} --ignoreNiftiHeaders;
-      exitcode=exitcode || break 0; 
+      exitcode=bids-validator ${i%%/} --ignoreNiftiHeaders || exitcode;
     done
+    exit exitcode;
