@@ -8,10 +8,5 @@ script:
   - |
     for i in $(ls -d */); 
     do 
-      bids-validator ${i%%/} --ignoreNiftiHeaders;
-
-      if [ $? -ne 0 ]
-      then
-        break
-      fi 
+      bids-validator ${i%%/} --ignoreNiftiHeaders || break 0;
     done;
