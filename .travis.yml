@@ -5,4 +5,13 @@ install:
   - npm install -g https://github.com/INCF/bids-validator.git#0.25.7
 
 script:
-  - ( for i in $(ls -d */); do bids-validator ${i%%/} --ignoreNiftiHeaders; done ); echo $?
+  - |
+    for i in $(ls -d */); 
+    do 
+      bids-validator ${i%%/} --ignoreNiftiHeaders;
+
+      if [ $? -ne 0 ]
+      then
+        break
+      fi 
+    done;
