@@ -6,10 +6,10 @@ install:
 
 script:
   - |
-    exitcode=0;
+    rc=0;
     for i in $(ls -d */); 
     do 
-      bids-validator ${i%%/} --ignoreNiftiHeaders;
-      exitcode=exitcode || $?; 
+      echo "Validating dataset" $i
+      bids-validator ${i%%/} --ignoreNiftiHeaders || rc=$?
     done
-    exit exitcode;
+    exit $rc;
